@@ -2,6 +2,7 @@ import getpass
 import socket
 import platform
 from datetime import datetime
+from pathlib import Path
 
 
 def get_local_ip():
@@ -33,21 +34,44 @@ def collect_system_info():
     }
 
 
-def display_report(info):
-    """Display the collected information in a readable format."""
+def generate_report(info):
+    """Format system information as a readable report."""
 
-    print()
-    print("=" * 45)
-    print("       SYSTEM INFORMATION REPORT")
-    print("=" * 45)
+    lines = [
+        "",
+        "=" * 45,
+        "       SYSTEM INFORMATION REPORT",
+        "=" * 45,
+    ]
 
     for label, value in info.items():
-        print(f"{label:<22}: {value}")
+        lines.append(f"{label:<22}: {value}")
 
-    print("=" * 45)
-    print()
+    lines.append("=" * 45)
+
+    return "\n".join(lines) + "\n"
+
+
+def save_report(report):
+    """Save the report to a timestamped log file."""
+
+    log_directory = Path("logs")
+    log_directory.mkdir(parents=True, exist_ok=True)
+
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    log_file = log_directory / f"system_info_{timestamp}.log"
+
+    with log_file.open("w", encoding="utf-8") as file:
+        file.write(report)
+
+    return log_file
 
 
 if __name__ == "__main__":
     system_info = collect_system_info()
-    display_report(system_info)
+    report = generate_report(system_info)
+
+    print(report)
+
+    saved_file = save_report(report)
+    print(f"Report saved to: {saved_file}")
