@@ -1,59 +1,37 @@
 # System Automation
 
-A Python-based system information tool designed to automate the collection of basic information from a Linux system.
+A simple Python automation tool that collects essential system information,
+displays a formatted report, and saves the report to a timestamped log file.
 
-## Purpose
+## Features
 
-The purpose of this project is to demonstrate how Python can be used to automate common IT system administration tasks.
+The script collects the following information:
 
-The tool currently collects:
+- Current timestamp
+- Logged-in username
+- Hostname
+- Operating system
+- Operating system release
+- Python version
+- Local IPv4 address
 
-- Current username
-- System hostname
+It displays the information in the terminal and saves a copy in the `logs/`
+directory.
 
-## Technologies
+## Requirements
 
 - Python 3
-- Linux / WSL
+- Linux or WSL environment
 
-## Current Features
-
-- Automatically detects the current username
-- Automatically detects the system hostname
-- Displays collected information in the terminal
+The project uses Python's standard library and requires no external packages.
 
 ## Project Structure
 
 ```text
 system-automation/
+├── system_info.py
 ├── README.md
-├── logs/
 ├── requirements.txt
-└── system_info.py
-
-```
-
-Then add:
-
-````markdown
-## Usage
-
-Run the program with:
-
-```bash
-python3 system_info.py
-```
-
-## Example Output
-
-```text
-SYSTEM INFORMATION
-==================
-System Information Tool
-Username: oscar
-Hostname: DESKTOP-D6KOOO8
-```
-
-## Project Status
-
-In development.
+├── .gitignore
+└── logs/
+    └── Generated report files
